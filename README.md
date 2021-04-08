@@ -1,4 +1,8 @@
-# Neuraltalk2-pytorch
+Neuraltalk2-pytorch_noname
+Changes compared to Neuraltalk2-pytorch.
+
+# Copy&Paste from https://github.com/nagizeroiw/neuraltalk2.pytorch
+## Neuraltalk2-pytorch
 
 Changes compared to neuraltalk2.
 - Instead of using random split, we use [karpathy's train-val-test split](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip).
@@ -6,21 +10,21 @@ Changes compared to neuraltalk2.
 - Use resnet instead of vgg; the feature extraction method is the same as in self-critical: run cnn on original image and adaptively average pool the last conv layer feature to fixed size .
 - Much more models (you can check out models folder). The latest topdown model can achieve 1.07 Cider score on Karpathy's test split with beam size 5.
 
-## Requirements
+### Requirements
 Python 2.7 (because there is no [coco-caption](https://github.com/tylin/coco-caption) version for python 3)
 PyTorch 0.2 (along with torchvision)
 
 You need to download pretrained resnet model for both training and evaluation. The models can be downloaded from [here](https://drive.google.com/open?id=0B7fNdx_jAqhtbVYzOURMdDNHSGM), and should be placed in `data/imagenet_weights`.
 
 
-## Pretrained models
+### Pretrained models
 Pretrained models are provided [here](https://drive.google.com/open?id=0B7fNdx_jAqhtcXp0aFlWSnJmb0k). And the performances of each model will be maintained in this [issue](https://github.com/ruotianluo/neuraltalk2.pytorch/issues/10).
 
 If you want to do evaluation only, then you can follow [this section](#generate-image-captions) after downloading the pretrained models.
 
-## Train your own network on COCO
+### Train your own network on COCO
 
-### Download COCO dataset and preprocessing
+#### Download COCO dataset and preprocessing
 
 First, download the coco images from [link](http://mscoco.org/dataset/#download). We need 2014 training images and 2014 val. images. You should put the `train2014/` and `val2014/` in the same directory, denoted as `$IMAGE_ROOT`.
 
@@ -41,7 +45,7 @@ $ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_di
 
 **Warning**: the prepro script will fail with the default MSCOCO data because one of their images is corrupted. See [this issue](https://github.com/karpathy/neuraltalk2/issues/4) for the fix, it involves manually replacing one image in the dataset.
 
-### Start training
+#### Start training
 
 ```bash
 $ python train.py --id st --caption_model show_tell --input_json data/cocotalk.json --input_fc_dir data/cocotalk_fc --input_att_dir data/cocotalk_att --input_label_h5 data/cocotalk_label.h5 --batch_size 10 --learning_rate 5e-4 --learning_rate_decay_start 0 --scheduled_sampling_start 0 --checkpoint_path log_st --save_checkpoint_every 6000 --val_images_use 5000 --max_epochs 25
@@ -61,9 +65,9 @@ For more options, see `opts.py`.
 
 **A few notes on training.** To give you an idea, with the default settings one epoch of MS COCO images is about 11000 iterations. After 1 epoch of training results in validation loss ~2.5 and CIDEr score of ~0.68. By iteration 60,000 CIDEr climbs up to about ~0.84 (validation loss at about 2.4 (under scheduled sampling)).
 
-## Generate image captions
+### Generate image captions
 
-### Evaluate on raw images
+#### Evaluate on raw images
 Now place all your images of interest into a folder, e.g. `blah`, and run
 the eval script:
 
@@ -80,7 +84,7 @@ $ python -m SimpleHTTPServer
 
 Now visit `localhost:8000` in your browser and you should see your predicted captions.
 
-### Evaluate on Karpathy's test split
+#### Evaluate on Karpathy's test split
 
 ```bash
 $ python eval.py --dump_images 0 --num_images 5000 --model model.pth --infos_path infos.pkl --language_eval 1 
@@ -90,13 +94,13 @@ The defualt split to evaluate is test. The default inference method is greedy de
 
 **Beam Search**. Beam search can increase the performance of the search for greedy decoding sequence by ~5%. However, this is a little more expensive. To turn on the beam search, use `--beam_size N`, N should be greater than 1.
 
-## Miscellanea
+### Miscellanea
 **Using cpu**. The code is currently defaultly using gpu; there is even no option for switching. If someone highly needs a cpu model, please open an issue; I can potentially create a cpu checkpoint and modify the eval.py to run the model on cpu. However, there's no point using cpu to train the model.
 
 **Train on other dataset**. It should be trivial to port if you can create a file like `dataset_coco.json` for your own dataset.
 
 **Live demo**. Not supported now. Welcome pull request.
 
-## Acknowledgements
+### Acknowledgements
 
 Thanks the original [neuraltalk2](https://github.com/karpathy/neuraltalk2) and awesome PyTorch team.
