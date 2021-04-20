@@ -10,7 +10,10 @@ log_st/
 save/
 part_test.py
 experiment_results/
-
+train2014/
+val2014/
+test2014/
+tmpimages/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
