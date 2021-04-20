@@ -1,3 +1,10 @@
+Links:
+flickr8k_dataset:
+  https://www.kaggle.com/adityajn105/flickr8k
+  or https://github.com/goodwillyoga/Flickr8k_dataset
+
+----
+
 Neuraltalk2-pytorch_noname
 Changes compared to Neuraltalk2-pytorch.
 
