@@ -1,12 +1,21 @@
-Links:
+Neuraltalk2-pytorch_noname
+Changes compared to Neuraltalk2-pytorch.
+### add pre_captions/f8k2coco.py folder --- to convert flickr8k pre-caption json to coco style
+f8k2coco.py reads dataset_flickr8k_test.json(orignal name dataset_flickr8k.json) download also from [link](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) from Karpathy's homepage
+it output coco-styled json(default: output dataset_fk8k_cocoformat.json) in same folder, which is already uploaded
+
+### add pre_captions/prepro_per_precaption_f8k.py to catagorise flickr8k_dataset images
+prepro_per_precaption_f8k.py reads input coco-styled json(default: output dataset_fk8k_cocoformat.json) and image folder,
+create train2014/val2014/test2014 in neuraltalk2.pytorch folder,
+copy the image to folders according to "split"(train/val/test) value.
+
+### dataset Links:
 flickr8k_dataset:
   https://www.kaggle.com/adityajn105/flickr8k
   or https://github.com/goodwillyoga/Flickr8k_dataset
 
 ----
 
-Neuraltalk2-pytorch_noname
-Changes compared to Neuraltalk2-pytorch.
 
 # Copy&Paste from https://github.com/nagizeroiw/neuraltalk2.pytorch
 ## Neuraltalk2-pytorch
