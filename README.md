@@ -1,15 +1,25 @@
 Neuraltalk2-pytorch_noname
 Changes compared to Neuraltalk2-pytorch.
-### add pre_captions/f8k2coco.py folder --- to convert flickr8k pre-caption json to coco style
-f8k2coco.py reads dataset_flickr8k_test.json(orignal name dataset_flickr8k.json) download also from [link](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) from Karpathy's homepage
+The main change aims to train flickr8k according to this section from nagizeroiw/neuraltalk2.pytorch
+### Train your own network on COCO
+#### add pre_captions/f8k2coco.py folder --- to convert flickr8k pre-caption json to coco style
+1 f8k2coco.py reads dataset_flickr8k_test.json(orignal name dataset_flickr8k.json) download also from [link](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) from Karpathy's homepage
 it output coco-styled json(default: output dataset_fk8k_cocoformat.json) in same folder, which is already uploaded
 
-### add pre_captions/prepro_per_precaption_f8k.py to catagorise flickr8k_dataset images
-prepro_per_precaption_f8k.py reads input coco-styled json(default: output dataset_fk8k_cocoformat.json) and image folder,
+#### add pre_captions/prepro_per_precaption_f8k.py to catagorise flickr8k_dataset images
+2 prepro_per_precaption_f8k.py reads input coco-styled json(default: output dataset_fk8k_cocoformat.json) and image folder,
 create train2014/val2014/test2014 in neuraltalk2.pytorch folder,
 copy the image to folders according to "split"(train/val/test) value.
 
-### dataset Links:
+#### then following previous intructions
+Copy the pre_captions/output dataset_fk8k_cocoformat.json to data/dataset_coco.json. Force copy and replace.
+then continue from "Once we have these, we can now invoke the `prepro_*.py` script,"
+```bash
+$ python scripts/prepro_labels.py --input_json data/dataset_coco.json --output_json data/cocotalk.json --output_h5 data/cocotalk
+$ python scripts/prepro_feats.py --input_json data/dataset_coco.json --output_dir data/cocotalk --images_root $IMAGE_ROOT
+```
+
+#### dataset Links:
 flickr8k_dataset:
   https://www.kaggle.com/adityajn105/flickr8k
   or https://github.com/goodwillyoga/Flickr8k_dataset
